@@ -1,0 +1,24 @@
+
+#header {
+  background-color:#000000;
+  padding:10px;
+}
+
+#header h1 {
+  font-size:18px;
+  padding:10px;
+  margin:10px;
+}
+
+#navigator {
+  float:left;
+  clear:left;
+  width:40%;
+}
+
+#target {
+  background-image:url("images/greygb.png");
+  float:right;
+  clear:right;
+  width:60%;
+}
