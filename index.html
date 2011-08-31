@@ -7,11 +7,65 @@
     <title>
       mkdirs
     </title>
-    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>  -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
     <script src="jquery-1.6.2.js"></script>
-    <script src="app.js"></script>
+    <!-- <script src="app.js"></script> -->
     <!-- <link href="css/base.css" rel="stylesheet" />  -->
     <!-- <link href="css/main.css" rel="stylesheet" />  -->
+
+<script>
+
+
+var SHORTCUT_REGEX = RegExp('<[^<>]*rel="shortcut icon"[^<>]*>',"i","m");
+var HREF_REGEX = RegExp('href="([^"]*)"',"i","m");
+
+
+var getUrl = function(url) {
+    
+    // TO DO:  validate URL
+
+    console.log("ajax get of " + url);
+
+    $.get(url, function(html) {
+        getFavicon(html, function(favicon_url) {
+    	    $("#chooser").html('<img src="' + favicon_url + '" class="favicon"');
+	});
+    })
+    .error(console.log("url not found"));
+
+};
+
+var getFavicon = function(html) {
+    var shortcut_link = SHORTCUT_REGEX.exec(html);
+    if (shortcut_link) {
+	var favicon_url = HREF_REGEX.exec(shortcut_link[0]);
+	if (favicon_url) {
+	    return favicon_url[1];
+	}
+    }
+    return null;
+};
+
+$(function() {
+
+	$("#urlInputButton").live("click", function(evt) {
+	    evt.preventDefault();
+    	    var url = $("#urlInput").val();
+	    getUrl(url);
+	});
+
+});
+
+
+
+
+</script>
+
+
+
+
+
+
 
 <style>
     
